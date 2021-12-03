@@ -1,0 +1,26 @@
+ <div class="search_input col-3" >
+                        <form class="d-flex">
+                            <input type="text" name="" id="" class="form-control search_input" placeholder="Search"
+                                onkeyup='sendData(this)'>
+                            <div id="searchResults"></div>
+                            {{!-- <button class="form-control" type="button">Search</button> --}}
+                        </form>
+                    </div>
+
+{{#each category}}
+<div class="section-html" style="background: {{background}} !important;">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="html-info">
+                    <h1 class="html-head">{{categoryName}}</h1>
+                    <p class="html-text">The language for building web pages</p>
+                    <a href="/view/{{id}}" class="html-btn">Learn {{categoryName}}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{/each}}
+
+
