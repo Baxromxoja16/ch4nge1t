@@ -1,6 +1,39 @@
 <div class="container">
     <h1>Footer uchun Qo'shish bo'limi</h1>
     <div class="row">
+        {{#if footerRight}}
+        <div class="container">
+            <div class="row foot">
+                {{#each navInfo}}
+                <div class="col-3">
+                    <div class="footer-social">
+                        <h3 class="social-head">Aloqa uchun</h3>
+                        <ul class="social-title">
+                            <li class="social-items"><a class="social-link" href="tel:{{tel}}"><i
+                                        class="fas fa-phone-volume"></i> {{tel}}</a></li>
+                            {{/each}}
+                            {{#each footer}}
+                            <li class="social-items"><a class="social-link" href="{{link1}}"> <i
+                                        class="fab fa-instagram"></i></a></li>
+                            <li class="social-items"><a class="social-link" href="{{link2}}"><i
+                                        class="fab fa-telegram"></i></a></li>
+                            <li class="social-items"><a class="social-link" href="{{link3}}"><i
+                                        class="fas fa-hand-point-right"></i> Bizning rasmiy sayt</a></li>
+                           <a href="/admin/footerInfo/delete/{{id}}"><button type="button" class="btn btn-danger">O`chirish</button></a>
+<a href="/admin/footerInfo/edit/{{id}}"><button type="button" class="btn btn-primary">O`zgartirish</button></a>
+                            {{/each}}
+                        </ul>
+                    </div>
+                </div>
+
+                {{!-- <div class="col-4">
+                    <div class="footer-logo">
+                        <a class="logo-link" href="#">WebReference</a>
+                    </div>
+                </div> --}}
+            </div>
+        </div>
+        {{else}}
         <form action="/admin/footerInfo/add" method="POST">
             <div class="manbaa" style="display: flex;justify-content: space-evenly;">
                 <div class="manbaa-flex">
@@ -11,17 +44,18 @@
                     <label for="">Telegram</label>
                     <input id="link2" name="link2" type="text" />
                     <br><br>
-                    <label for="">Change  </label>
+                    <label for="">Change </label>
                     <input id="link3" name="link3" type="text" />
                     <br>
                     <br /><br />
-            <div class="cub">
-                <button class="btn btn-primary" type="submit">Send</button>
-            <br/>
-            <br/>
-            </div>
+                    <div class="cub">
+                        <button class="btn btn-primary" type="submit">Send</button>
+                        <br />
+                        <br />
+                    </div>
                 </div>
             </div>
         </form>
+        {{/if}}
     </div>
 </div>

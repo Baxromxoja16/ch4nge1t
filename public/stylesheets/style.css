@@ -208,7 +208,8 @@ footer {
 /* header start */
 
 .nav-top {
-    background-color: rgba(2, 2, 2, 0.5);
+    /* background-color: rgba(2, 2, 2, 0.5); */
+    background: #000;
     padding: 20px 0;
     background-attachment: fixed;
     /* position: fixed; */
@@ -301,20 +302,20 @@ section {
 .html-head {
     font-weight: 700;
     font-size: 100px;
-    color: #fff;
+    color: #000;
 }
 
 .html-text {
     margin: 20px 0;
     font-size: 25px;
-    color: #fff;
+    color: #000;
 }
 
 .html-btn {
     border: none;
     padding: 10px 20px;
     font-size: 25px;
-    background-color: darkgreen;
+    background-color: black;
     color: #fff;
     text-decoration: none;
     border-radius: 20px;
@@ -590,10 +591,10 @@ a:hover {
     color: gold;
 }
 
-.search_input {
-    position: absolute;
-    top: 5%;
-    right: 7%;
+.search_form {
+    position: relative;
+    /* top: 5%; */
+    /* right: 7%; */
 }
 
 .search_input #liveseach {
@@ -621,15 +622,21 @@ a:hover {
     z-index: 100;
     display: flex;
     flex-direction: column;
-    overflow: hidden;
+    overflow: auto;
+    /* height: 200px;  */
 }
 
 #searchResults a {
     text-decoration: none;
-    padding: 10px;
+    padding-left: 10px;
     color: white;
     font-weight: 600;
     transition: 0.5s;
+    margin: 7px 0;
+}
+
+hr {
+    margin: 0;
 }
 
 #searchResults a:hover {

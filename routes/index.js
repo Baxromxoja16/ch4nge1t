@@ -5,14 +5,9 @@ const Category = require('../models/Category')
 const fileUpload = require('../middleware/fileUpload')
 const mongoose = require('mongoose')
 
-
-/* GET home page. */
 router.get('/', fileUpload.single('productImg'), async function(req, res, next) {
     const produc = await Product.find()
-    await Promise.all(produc.map(async(m) => (await m.populate('categoryId'))))
-        // const {img, navtitle} = NavInfo.find()
-
-    // const navInfo = await NavInfo.find()
+        // await Promise.all(produc.map(async(m) => (await m.populate('categoryId'))))
     const category = await Category.find()
     const categoryProduct = await Promise.all(category.map(async(category) => {
         let products = await Category.aggregate([{
@@ -33,16 +28,14 @@ router.get('/', fileUpload.single('productImg'), async function(req, res, next) 
         products = products[0].mahsulotlar;
         return { products }
     }))
-
-
     res.render('index', {
         title: 'Express',
         produc,
         category,
         categoryProduct,
+        searchInput: true
     });
 });
-
 router.get('/view/:id', async(req, res) => {
     const { categoryName } = await Category.findById(req.params.id);
     const category = await Category.find()
@@ -82,41 +75,22 @@ router.get('/view/:id', async(req, res) => {
                 productSyntax: "$_id.productSyntax",
                 productImg: "$_id.productImg",
                 mahsulotlar: "$mahsulotlar",
+
             },
         },
     ]);
-    products = products[0].mahsulotlar;
-    const categoryProduct = await Promise.all(category.map(async(category) => {
-        let products = await Category.aggregate([{
-                $match: {
-                    _id: mongoose.Types.ObjectId(category._id),
-                },
-
-            },
-            {
-                $lookup: {
-                    from: "products",
-                    localField: "_id",
-                    foreignField: "categoryId",
-                    as: "mahsulotlar",
-                },
-            },
-        ]);
+    if (products.length > 0) {
         products = products[0].mahsulotlar;
-        return { products }
-    }))
-    console.log(categoryProduct[0]);
-    res.render('clientCategory', {
-        layout: 'layout',
-        title: 'Client category',
-        products,
-        categoryName,
-        categoryProduct,
-        category
-    })
+        res.render('clientCategory', {
+            layout: 'layout',
+            products,
+            categoryName,
+            category,
+        })
+    } else {
+        res.redirect('/')
+    }
 })
-
-
 router.get('/read/:id', async(req, res) => {
     const pro = await Product.findById(req.params.id)
         // console.log(req.body);
@@ -128,8 +102,6 @@ router.get('/read/:id', async(req, res) => {
         pro
     })
 })
-
-
 router.post("/getUsers", async(req, res) => {
     let payload = req.body.payload.trim();
     let search = await Product.find({
@@ -142,9 +114,4 @@ router.post("/getUsers", async(req, res) => {
         payload: search,
     });
 });
-
-
-
-
-
 module.exports = router;

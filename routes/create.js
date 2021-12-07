@@ -6,7 +6,8 @@ const NavInfo = require('../models/NavInfo')
 const auth = require('../middleware/auth')
 
 
-router.get('/view', async(req, res) => {
+
+router.get('/view', auth, async(req, res) => {
     const navInfo = await NavInfo.find()
     res.render('admin/create', ({
         layout: 'main',
@@ -14,8 +15,7 @@ router.get('/view', async(req, res) => {
         navInfo
     }))
 })
-
-router.post('/view', fileUpload.single('img'), async(req, res) => {
+router.post('/view', auth, fileUpload.single('img'), async(req, res) => {
     const { navtitle, tel } = req.body
 
     if (req.file) {
@@ -36,7 +36,7 @@ router.post('/view', fileUpload.single('img'), async(req, res) => {
         res.redirect('/admin')
     }
 })
-router.get('/read', async(req, res) => {
+router.get('/read', auth, async(req, res) => {
     const navInfo = await NavInfo.find()
 
     res.render('admin/logoRead', {
@@ -44,8 +44,7 @@ router.get('/read', async(req, res) => {
         navInfo
     })
 })
-
-router.get('/edit/:id', async(req, res) => {
+router.get('/edit/:id', auth, async(req, res) => {
     const navinfo = await NavInfo.findById(req.params.id)
     res.render('admin/logoEdit', {
         title: 'O`zgartirish',
@@ -53,8 +52,7 @@ router.get('/edit/:id', async(req, res) => {
         navinfo
     })
 })
-
-router.post('/edit/:id', fileUpload.single('img'), async(req, res) => {
+router.post('/edit/:id', auth, fileUpload.single('img'), async(req, res) => {
     const { img } = await NavInfo.findById(req.params.id)
     const navinfo = req.body
 
@@ -66,8 +64,7 @@ router.post('/edit/:id', fileUpload.single('img'), async(req, res) => {
     await NavInfo.findByIdAndUpdate(req.params.id, navinfo, res.redirect('/admin'))
 
 })
-
-router.get('/delete/:id', async(req, res) => {
+router.get('/delete/:id', auth, async(req, res) => {
     const { img } = await NavInfo.findById(req.params.id)
     toDelete(img)
     await NavInfo.findByIdAndDelete(req.params.id, res.redirect('/admin'))

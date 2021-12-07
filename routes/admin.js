@@ -4,8 +4,7 @@ const NavInfo = require('../models/NavInfo')
 const footerInfo = require('../models/Footerinfo')
 const auth = require('../middleware/auth')
 
-
-router.get('/', async(req, res) => {
+router.get('/', auth, async(req, res) => {
     const navInfo = await NavInfo.find()
     const footerRight = await footerInfo.find()
 

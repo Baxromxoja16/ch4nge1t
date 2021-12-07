@@ -7,10 +7,11 @@ const adminSchema = new Schema({
     },
     login: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     password: {
-        type: Number,
+        type: String,
         required: true
     },
     avatar: {

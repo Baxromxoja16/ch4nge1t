@@ -6,7 +6,7 @@ const auth = require('../middleware/auth')
 
 
 
-router.get('/read', async(req, res) => {
+router.get('/read', auth, async(req, res) => {
     const category = await Category.find()
     res.render('admin/category', {
         title: 'kategoriyalar ko`rish',
@@ -14,7 +14,7 @@ router.get('/read', async(req, res) => {
         category,
     })
 })
-router.get('/read/:id', async(req, res) => {
+router.get('/read/:id', auth, async(req, res) => {
     const { categoryName, background } = await Category.findById(req.params.id);
     let products = await Category.aggregate([{
             $match: {
@@ -65,9 +65,7 @@ router.get('/read/:id', async(req, res) => {
         background
     })
 })
-
-
-router.get('/add', async(req, res) => {
+router.get('/add', auth, async(req, res) => {
     console.log();
 
     res.render('admin/categoryCreat', {
@@ -75,20 +73,18 @@ router.get('/add', async(req, res) => {
         title: 'kategoriya yaratish',
     })
 })
-
-router.post('/add', async(req, res) => {
+router.post('/add', auth, async(req, res) => {
     try {
         const { categoryName } = req.body
         const category = new Category(req.body)
 
         await category.save()
-        res.redirect('/admin/category/read')
+        res.redirect('/admin/product/add')
     } catch (error) {
         console.log(error.message);
     }
 })
-
-router.get('/edit/:id', async(req, res) => {
+router.get('/edit/:id', auth, async(req, res) => {
     const category = await Category.findById(req.params.id)
     res.render('admin/categoryEdit', {
         layout: 'main',
@@ -96,13 +92,13 @@ router.get('/edit/:id', async(req, res) => {
     })
 })
 router.post('/edit/:id', auth, async(req, res) => {
-    const Update = {}
-    Update.categoryName = req.body.categoryName
+    // const Update = {}
+    // const { categoryName, background } = req.body
 
-    await Category.findByIdAndUpdate(req.params.id, Update)
+    await Category.findByIdAndUpdate(req.params.id, req.body)
     res.redirect('/admin/category/read')
 })
-router.get('/delete/:id', async(req, res) => {
+router.get('/delete/:id', auth, async(req, res) => {
     await Category.findByIdAndDelete(req.params.id)
     res.redirect('/admin/category/read')
 })

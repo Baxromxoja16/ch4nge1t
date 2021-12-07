@@ -8,6 +8,7 @@ const NavInfo = require('./models/NavInfo')
 const footerInfo = require('./models/Footerinfo')
 const dotenv = require('dotenv')
 const session = require('express-session')
+const Product = require('./models/Product')
 const MongoStore = require('connect-mongodb-session')(session);
 
 
@@ -19,9 +20,8 @@ const categoryRouter = require('./routes/category')
 const adminRouter = require('./routes/admin')
 const productRouter = require('./routes/product')
 const creatRouter = require('./routes/create');
+const authRouter = require('./routes/auth');
 const footerInfoRouter = require('./routes/footerInfo');
-const telRouter = require('./routes/tel');
-// const authRouter = require('./routes/auth');
 const variables = require('./middleware/virables')
 
 
@@ -77,6 +77,12 @@ app.use(async(req, res, next) => {
     next()
 })
 
+app.use(async(req, res, next) => {
+    const produc = await Product.find()
+    res.locals.produc = produc
+    next()
+})
+
 app.use('/admin', express.static(path.join(__dirname, 'public')))
 app.use('/admin:any', express.static(path.join(__dirname, 'public')))
 
@@ -89,8 +95,8 @@ app.use('/admin/category', categoryRouter);
 app.use('/admin/product', productRouter);
 app.use('/admin/create', creatRouter);
 app.use('/admin/footerInfo', footerInfoRouter);
-app.use('/admin/tel', telRouter);
-// app.use('/auth', authRouter);
+// app.use('/admin/tel', telRouter);
+app.use('/auth', authRouter);
 
 
 // catch 404 and forward to error handler

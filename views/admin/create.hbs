@@ -1,3 +1,23 @@
+{{#if navInfo}}
+{{#each navInfo}}
+<div class="content-box  align-items-center">
+    <div class="navbar_img" style="margin-top: 20px ;">
+        <img src="/images/{{img}}" alt="png"  />
+      <a class="navtitle" href="#!">{{navtitle}}</a>
+    </div>
+    <hr>
+    <div style="margin-top: 20px;">
+    <a  href="#" class="tel">{{tel}}</a>
+    </div>
+    <hr>
+    <div class="content-text"style="margin: 20px 0;" >
+        <a href="/admin/create/edit/{{id}}"><button class="btn btn-primary">O'zgartirish</button></a>
+        <a href="/admin/create/delete/{{id}}"><button class="btn btn-danger">O'chirish</button></a>
+    </div>
+</div>
+{{/each}}
+{{else}}
+
 <div class="container">
   <div class="row">
     <h1>Qo'shish</h1>
@@ -19,6 +39,8 @@
     </form>
   </div>
 </div>
+{{/if}}
+
 
 {{!-- <div class="container">
   <div class="row">

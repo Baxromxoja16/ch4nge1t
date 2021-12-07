@@ -5,7 +5,7 @@ const footerInfo = require('../models/Footerinfo')
 const auth = require('../middleware/auth')
 
 
-router.get('/add', async(req, res) => {
+router.get('/add', auth, async(req, res) => {
     const footerRight = await footerInfo.find()
     res.render('admin/footerInfo', {
         layout: 'main',
@@ -13,7 +13,7 @@ router.get('/add', async(req, res) => {
     })
 })
 
-router.post('/add', async(req, res) => {
+router.post('/add', auth, async(req, res) => {
     const { link1, link2, link3 } = req.body
     const setting = new footerInfo({
         link1,
@@ -24,16 +24,15 @@ router.post('/add', async(req, res) => {
     res.redirect('/admin')
 })
 
-router.get('/view', async(req, res) => {
+router.get('/view', auth, async(req, res) => {
     const footerRight = await footerInfo.find()
-
     res.render('admin/footerView', {
         footerRight,
         layout: 'main'
     })
 })
 
-router.get('/edit/:id', async(req, res) => {
+router.get('/edit/:id', auth, async(req, res) => {
     const footerRight = await footerInfo.findById(req.params.id)
 
     res.render('admin/footerEdit', {
@@ -43,7 +42,7 @@ router.get('/edit/:id', async(req, res) => {
     })
 })
 
-router.post('/edit/:id', async(req, res) => {
+router.post('/edit/:id', auth, async(req, res) => {
 
 
     await footerInfo.findByIdAndUpdate(req.params.id, req.body)
@@ -51,10 +50,10 @@ router.post('/edit/:id', async(req, res) => {
 })
 
 
-router.get('/delete/:id', async(req, res) => {
+router.get('/delete/:id', auth, async(req, res) => {
 
     await footerInfo.findByIdAndDelete(req.params.id)
-    res.redirect('/admin/footerInfo/view')
+    res.redirect('/admin')
 })
 
 
