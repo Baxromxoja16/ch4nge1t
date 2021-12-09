@@ -438,25 +438,44 @@ section {
 /* tag start */
 
 .tag {
-    padding: 50px;
-    margin-bottom: 30px;
-    padding-top: 150px !important;
+   background: #fff;
+   padding: 50px 0;
+
 }
 
-.tag-info-text {
-    margin-bottom: 80px;
-}
+
+
 
 .tag-text {
-    background-color: lavender;
+    font-weight: 700;
+    font-size: 18px;
+    border: solid 2px #eee;
+    box-shadow:  0 0 10px #333;
+    padding: 15px;
+    margin-top: 10px;
+    margin-bottom: 40px;
+}
+.tag-head{
+    font-size: 50px;
+}
+.tag-info span{
+    font-size: 30px;
+
 }
 
 .syntax-text {
-    background-color: lavender;
+    padding: 7px;
+    font-size: 25px;
+    font-weight: 900;
+    color: blue;
+    border: 2px solid #eee;
+    box-shadow: 0 0 10px   #ccc;
+    border-left: 7px solid green;
 }
 
 .tag-syntax {
-    margin-bottom: 80px;
+    margin-top: 35px;
+    margin-bottom: 50px;
 }
 
 .infotag {
@@ -661,6 +680,7 @@ hr {
     color: #fff !important;
     background: #fff;
 }
+
 
 
 .navbar-collapse{
